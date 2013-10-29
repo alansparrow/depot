@@ -21,6 +21,8 @@ text-align: center;
 
 img {
 float: left;
+height: 42px;
+width: 206px;
 }
 }
 
@@ -47,6 +49,10 @@ float: left;
 padding: 1em 2em;
 width: 13em;
 background: #141;
+
+#time {
+color: white;
+}
 
 ul {
 padding: 0;
