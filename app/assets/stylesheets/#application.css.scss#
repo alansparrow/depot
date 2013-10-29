@@ -1,0 +1,62 @@
+/*
+* This is a manifest file that'll be compiled into application.css, which will include all the files
+* listed below.
+*
+* Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+* or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+*
+* You're free to add application-wide styles to this file and they'll appear at the top of the
+* compiled file, but it's generally better to create a new file per style scope.
+*
+*= require_self
+*= require_tree .
+*/
+#banner {
+background: #9c9;
+padding: 10px;
+border-bottom: 2px solid;
+font:  Small-Caps 40px/40px "Times New Roman", Serif;
+Color: #282;
+Text-Align: Center;
+
+Img {
+Float: Left;
+}
+}
+
+#Notice {
+Color: #000 !Important;
+Border: 2px Solid Red;
+Padding: 1em;
+Margin-Bottom: 2em;
+Background-Color: #F0f0f0;
+Font: Bold Smaller Sans-Serif;
+}
+
+#Columns {
+Background: #141;
+
+#Main {
+Margin-Left: 17em;
+Padding: 1em;
+Background: White;
+}
+
+#Side {
+Float: Left;
+Padding: 1em 2em;
+Width: 13em;
+Background: #141;
+
+Ul {
+Padding: 0;
+Li {
+List-Style: None;
+A {
+Color: #Bfb;
+Font-Size: small;
+}
+}
+}
+}
+}
