@@ -15,10 +15,10 @@
     <div id="side">
       <h3 id="time"><%= Time.zone.now %></p>
       <ul>
-	<li><a href="http://www....">Home</a></li>
-	<li><a href="http://www..../faq">Questions</a></li>
-	<li><a href="http://www..../news">News</a></li>
-	<li><a href="http://www..../contact">Contact</a></li>
+	<li><%= link_to "Home", store_path %></li>
+	<li><%= link_to "Questions", '#' %></li>
+	<li><%= link_to "News", '#' %></li>
+	<li><%= link_to "Contact", '#' %></li>
       </ul>
     </div>
     <div id="main">
