@@ -2,7 +2,7 @@ class LineItemsController < ApplicationController
   include CurrentCart
   before_action :set_cart, only: [:create]
   before_action :set_line_item, only: [:show, :edit, :update, :destroy]
-
+  rescue_from ActiveRecord::RecordNotFound, with: :invalid_line_item
   # GET /line_items
   # GET /line_items.json
   def index
@@ -31,7 +31,8 @@ class LineItemsController < ApplicationController
     session[:counter] = 0 # Reset the counter to 0 whenever the user adds something to the cart
     respond_to do |format|
       if @line_item.save
-        format.html { redirect_to @line_item.cart }
+        format.html { redirect_to store_url }
+        format.js
         format.json { render action: 'show', status: :created, location: @line_item }
       else
         format.html { render action: 'new' }
@@ -57,9 +58,11 @@ class LineItemsController < ApplicationController
   # DELETE /line_items/1
   # DELETE /line_items/1.json
   def destroy
-    @line_item.destroy
+    cart = @line_item.cart
+    @line_item.destroy if @line_item.cart_id == session[:cart_id]
     respond_to do |format|
-      format.html { redirect_to line_items_url }
+      format.html { redirect_to cart_url(cart),
+      notice: 'Your item has been deleted' }
       format.json { head :no_content }
     end
   end
@@ -73,5 +76,10 @@ class LineItemsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def line_item_params
       params.require(:line_item).permit(:product_id)
+    end
+
+    def invalid_line_item
+      logger.error "Attempt to access invalid line item #{params[:id]}"
+      redirect_to store_url, notice: 'Invalid line item'
     end
 end
