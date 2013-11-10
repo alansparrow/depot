@@ -50,11 +50,43 @@ class LineItemsControllerTest < ActionController::TestCase
     assert_redirected_to line_item_path(assigns(:line_item))
   end
 
-  test "should destroy line_item" do
-    assert_difference('LineItem.count', -1) do
-      delete :destroy, id: @line_item
+  test "should reduce line_item" do
+    @line_item.quantity += 1
+    assert_difference('@line_item.quantity', -1) do
+      delete :destroy, id: @line_item.id
+     
+      # Holy shit! We really need this line T.T
+      @line_item.reload
     end
 
-    assert_redirected_to cart_url(@line_item.cart)
+    #@line_item.quantity += 1
+    #before = @line_item.quantity
+    #delete :destroy, id: @line_item.id
+    # Holy shit! We really need this line T.T
+    #@line_item.reload
+    #after = @line_item.quantity
+    #assert_equal after, before - 1
+    
+
+    assert_redirected_to store_url
   end
+
+  test "should destroy line_item" do
+    cart = Cart.create
+    product = Product.all.first
+    
+    # This shit makes the test run
+    session[:cart_id] = cart.id
+
+    cart.add_product(product.id).save
+    line_item = cart.line_items.find_by_product_id(product.id)
+
+    assert_difference('cart.line_items.count', -1) do
+      delete :destroy, id: line_item.id
+      # Because cart.line_items.count query in Database 
+      # so we don't need to reload it, different from @line_item.quantity
+      #      cart.reload 
+    end
+  end
+
 end

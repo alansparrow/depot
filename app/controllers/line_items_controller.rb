@@ -1,6 +1,6 @@
 class LineItemsController < ApplicationController
   include CurrentCart
-  before_action :set_cart, only: [:create]
+  before_action :set_cart, only: [:create, :destroy]
   before_action :set_line_item, only: [:show, :edit, :update, :destroy]
   rescue_from ActiveRecord::RecordNotFound, with: :invalid_line_item
   # GET /line_items
@@ -58,11 +58,23 @@ class LineItemsController < ApplicationController
   # DELETE /line_items/1
   # DELETE /line_items/1.json
   def destroy
-    cart = @line_item.cart
-    @line_item.destroy if @line_item.cart_id == session[:cart_id]
+    @line_item = @cart.remove_product(@line_item.product_id)
+    #@line_item = Cart.find(@line_item.cart_id).remove_product(@line_item.product_id)
+
+    if (@line_item) #&& (@line_item.cart_id == session[:cart_id]))
+      if (@line_item.quantity == 0) 
+        @line_item.destroy
+      else
+        @line_item.save
+      end
+    end
+
+    #cart = @line_item.cart
+    #@line_item.destroy if @line_item.cart_id == session[:cart_id]
+
     respond_to do |format|
-      format.html { redirect_to cart_url(cart),
-      notice: 'Your item has been deleted' }
+      format.html { redirect_to store_url, notice: 'Your item has been deleted' }
+      format.js { @current_item = @line_item }
       format.json { head :no_content }
     end
   end
