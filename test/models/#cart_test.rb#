@@ -17,8 +17,6 @@ class CartTest < ActiveSupport::TestCase
     cart = Cart.create
     cart.add_product(products(:python).id).save!
     cart.add_product(cart.line_items.first.product.id).save!
-    # Reload to reflect database change
-    cart.reload 
     assert_equal (products(:python).price * 2), cart.total_price
     assert_equal 1, cart.line_items.size
   end

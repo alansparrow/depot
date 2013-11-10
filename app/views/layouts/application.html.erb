@@ -13,8 +13,10 @@
   </div>
   <div id="columns">
     <div id="side">
+      <% if @cart %>
       <%= hidden_div_if(@cart.line_items.empty?, id: 'cart') do %>
-	<%= render @cart %>
+      <%= render @cart %>
+      <% end %>
       <% end %>
 
       <h3 id="time"><%= Time.zone.now %></h3>
