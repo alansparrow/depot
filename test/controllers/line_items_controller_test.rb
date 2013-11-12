@@ -75,7 +75,7 @@ class LineItemsControllerTest < ActionController::TestCase
     cart = Cart.create
     product = Product.all.first
     
-    # This shit makes the test run
+    # This shit makes the test run, set the card_id for session
     session[:cart_id] = cart.id
 
     cart.add_product(product.id).save
