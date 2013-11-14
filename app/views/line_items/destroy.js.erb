@@ -1,5 +1,12 @@
+
 $('#cart').html("<%= escape_javascript render(@cart) %>");
 
 if ($('#cart tr').length == 1) { $('#cart').hide(); }
 
 $('#current_item').css({'background-color':'#66ff55'}).animate({'background-color':'#114411'}, 1000);
+
+if ($('#new_order').length == 0) {
+  $('#checkout_btn').show();
+} else {
+  $('#checkout_btn').hide();
+}     
