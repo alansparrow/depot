@@ -2,3 +2,7 @@ $('#cart').html("<%= escape_javascript render(@cart) %>");
 
 if ($('#cart tr').length == 1) { $('#cart').hide(); }
 
+if ($('#cart').css('display') == 'none') { 
+  window.location.href="http://54.238.164.185:7070/";
+}
+
