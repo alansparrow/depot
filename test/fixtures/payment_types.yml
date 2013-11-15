@@ -11,7 +11,9 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 one:
-  payment_type: MyString
+  payment_type: Check
 
 two:
-  payment_type: MyString
+  payment_type: "Credit card"
+three:
+  payment_type: "Purchase order"	

@@ -67,9 +67,50 @@ class ProductsController < ApplicationController
     if stale?(@latest_order)
       respond_to do |format|
         format.atom
+        #format.xml { render :xml => @product.to_xml(:include => :orders) }
+        format.json { render :json => @product.to_json(:include => :orders) }
+        format.html { }
+        
+        #format.xml do 
+        #  render( :xml => @product.to_xml(
+        #                                  :only => [ :title, :updated_at ],
+        #                                  :skip_types => true,
+        #                                  :include => { 
+        #                                    :orders => {
+        #                                      :except => [ :created_at, :updated_at ],
+        #                                      :skip_types => true,
+        #                                      :include => { 
+        #                                        :line_items => {
+        #                                          :skip_types => true,
+        #                                          :except => [ :created_at, :updated_at, :cart_id, :order_id ]
+        #                                        }
+        #                                      }
+        #                                    }
+        #                                  }
+        #                                  )) 
+        #end
+        format.xml do 
+          render( :xml => @product.to_xml(
+                                          :only => [ :title, :updated_at ],
+                                          :skip_types => true,
+                                          :include => {
+                                            :orders => {
+                                              :except => [ :created_at, :updated_at ],
+                                              :skip_types => true,
+                                              :include => {
+                                                :line_items => {
+                                                  :skip_types => true,
+                                                  :except => [ :created_at, :updated_at, :cart_id, :order_id ]
+                                                }
+                                              }
+                                            }
+                                          }
+                                          ))
+        end
       end
     end
   end
+  
 
   private
     # Use callbacks to share common setup or constraints between actions.
