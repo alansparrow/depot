@@ -10,7 +10,12 @@ Depot::Application.configure do
   # Do not eager load code on boot. This avoids loading your whole application
   # just for the purpose of running a single test. If you are using a tool that
   # preloads Rails for running tests, you may have to set it to true.
-  config.eager_load = false
+  
+  # config.eager_load = false
+  # Change to make the test in orders_controller.rb run
+  # Model PaymentType may be load and set PAYMENT_TYPES = PaymentType.all.pluck(:payment_types)
+  # so the test will run
+  config.eager_load = true
 
   # Configure static asset server for tests with Cache-Control for performance.
   config.serve_static_assets  = true

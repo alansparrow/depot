@@ -28,7 +28,13 @@ class OrdersControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+
+  # This test need change config.eager_load to be true in config/environments/test.rb
+  # so the model PaymentType may be load and set PAYMENT_TYPES = PaymentType.all.pluck(:payment_types)
+
   test "should create order" do
+    #p PaymentType.all.pluck(:payment_type)
+    #p Order::PAYMENT_TYPES
     assert_difference('Order.count') do
       post :create, order: { address: @order.address, email: @order.email, name: @order.name, pay_type: @order.pay_type }
     end

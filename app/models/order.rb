@@ -16,9 +16,10 @@ class Order < ActiveRecord::Base
 
   PAYMENT_TYPES =  PaymentType.all.pluck(:payment_type)
   #["Check", "Credit card", "Purchase Order"]
+  #@@payment_types = PaymentType.all.pluck(:payment_type)
 
   validates :name, :address, :email, presence: true
-  validates :pay_type, inclusion: PAYMENT_TYPES
+  validates :pay_type, inclusion: PAYMENT_TYPES#@@payment_types#PAYMENT_TYPES
 
   def add_line_items_from_cart(cart)
     cart.line_items.each do |item|
@@ -29,6 +30,10 @@ class Order < ActiveRecord::Base
       line_items << item 
     end
   end
+
+#  def self.payment_types
+#    @@payment_types
+#  end
   
 end
 
